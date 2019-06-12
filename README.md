@@ -2,6 +2,10 @@
 
 DB
 
+We will use sqlite to persist data.
+
+$npm install sqlite3
+
 Entities  
 * Match
   * Id (PK)
