@@ -1,15 +1,10 @@
 const fs = require('fs')
 
-class Repository{
+class Repository {
 
     loadDatabase() {
-        let players;
-        fs.readFile('Players.json','UTF8', (err,data)=>{
-            if(err) throw err;
-            players = JSON.parse(data)
-            console.log(players)
-        });
-        this.players = players;
+        let data = fs.readFileSync('Players.json', 'utf8')
+        this.players = JSON.parse(data)
     }
 
     listTeams() {
@@ -18,6 +13,16 @@ class Repository{
 
     listPlayers() {
         return this.players.map(player => player.name + ' ' + player.lastname)
+    }
+
+    addPlayer(player) {
+        this.players.push(player)
+        this.save()
+        console.log('Player added')
+    }
+
+    save() {
+        fs.writeFileSync('Players.json', JSON.stringify(this.players), 'utf8')
     }
 
 }
