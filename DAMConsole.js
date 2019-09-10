@@ -1,11 +1,12 @@
 let fs = require('fs');
-let Repository = require('./models/repository')
+let SQLRepository = require('./models/SQLRepository')
 
 class DAMConsole{
 
-    run(){
-        let repository = new Repository();
-        repository.loadDatabase();
+    async run(){
+        // let repository = new Repository();
+        let repository = new SQLRepository();
+        await repository.loadDatabase();
 
         if (process.argv.length < 3) {
             console.error('I need at least an argument')

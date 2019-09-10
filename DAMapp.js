@@ -4,4 +4,3 @@ let DAMConsole = require('./DAMConsole')
 
 let damConsole = new DAMConsole();
 damConsole.run();
-
