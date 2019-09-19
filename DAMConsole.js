@@ -1,18 +1,19 @@
 let fs = require('fs');
+let path = require('path');
+const sqlite3 = require('sqlite3').verbose()
 let SQLRepository = require('./models/SQLRepository')
 
-class DAMConsole{
+class DAMConsole {
 
-    async run(){
-        // let repository = new Repository();
+    async run() {
         let repository = new SQLRepository();
-        await repository.loadDatabase();
+        await repository.loadDatabase().then((data) => {console.log(data)}).catch();
 
         if (process.argv.length < 3) {
             console.error('I need at least an argument')
             process.exit()
         }
-        
+
         if (process.argv[2] == '--help') {
             console.log('This is a futbol app for managment of tournaments')
             console.log('Usage:')
@@ -27,7 +28,7 @@ class DAMConsole{
             console.log(teams)
             process.exit()
         }
-        
+
         if (this.isListingPlayers(process.argv)) {
             let players = repository.listPlayers()
             console.log(players)
@@ -45,11 +46,11 @@ class DAMConsole{
         }
 
     }
-        
+
     isListingTeams(keyWords) {
         return keyWords[2] == 'list' && keyWords[3] == 'teams'
     }
-    
+
     isListingPlayers(keyWords) {
         return keyWords[2] == 'list' && keyWords[3] == 'players'
     }
